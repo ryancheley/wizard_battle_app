@@ -40,6 +40,12 @@ class SmallAnimal(Creature):
         return base_roll / 2
 
 
+class Predator(Creature):
+    def get_defensive_roll(self):
+        base_roll = super().get_defensive_roll()
+        return base_roll * 4
+
+
 class Dragon(Creature):
     def __init__(self, name, level, scaliness, breathes_fire):
         super().__init__(

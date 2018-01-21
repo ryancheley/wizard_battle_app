@@ -1,6 +1,6 @@
 import random
 import time
-from actors import Wizard, Creature, SmallAnimal, Dragon
+from actors import Wizard, Creature, SmallAnimal, Dragon, Predator
 
 
 def main():
@@ -16,14 +16,24 @@ def print_header():
 
 
 def game_loop():
-# TODO: randomize the number and types of Creatures to fight
-    creature = [
-        SmallAnimal('Toad', 1),
-        SmallAnimal('Bat', 3),
-        Creature('Tiger', 12),
-        Dragon('Dragon', 50, 75, True),
-        Wizard('Evil Wizard', 1000)
-    ]
+    small_animal_count = random.randint(1, 6)
+    predator_count = random.randint(1, 4)
+    dragon_count = random.randint(1, 2)
+
+    print(small_animal_count, predator_count, dragon_count)
+
+    creature = []
+    creature.append(Wizard('Evil Wizard', random.randint(500, 1000)))
+
+    for d in range(1, dragon_count+1):
+        creature.append(Dragon('Dragon', random.randint(35, 50), random.randint(1, 100), True if random.randint(1,100)
+                                                                                                 <= 50 else False))
+
+    for p in range(1, predator_count+1):
+        creature.append(Predator('Tiger', random.randint(1, 12)))
+
+    for sa in range(1, small_animal_count+1):
+        creature.append(SmallAnimal('Toad', random.randint(1, 3)))
 
     hero = Wizard('Ryan', 100)
 
