@@ -35,7 +35,6 @@ class Wizard(Creature):
 
 
 class SmallAnimal(Creature):
-    # ToDo: Flesh out what a SmallAnimal can do
     def get_defensive_roll(self):
         base_roll = super().get_defensive_roll()
         return base_roll / 2

@@ -1,13 +1,12 @@
 import random
-
 import time
-
 from actors import Wizard, Creature, SmallAnimal, Dragon
+
 
 def main():
     print_header()
-    # get action inputs from user
     game_loop()
+
 
 def print_header():
     print('-------------------------------')
@@ -30,10 +29,14 @@ def game_loop():
 
     while True:
         active_creature = random.choice(creature)
-        # TODO: Add proper grammar for print statement below
-        print('A {} of level {} has appeared from a dark and foggy forrest'.format(
-            active_creature.name, active_creature.level
-        ))
+        if active_creature.name[0] == 'E':
+            print('An {} of level {} has appeared from a dark and foggy forrest'.format(
+                active_creature.name, active_creature.level
+            ))
+        else:
+            print('A {} of level {} has appeared from a dark and foggy forrest'.format(
+                active_creature.name, active_creature.level
+            ))
 
         cmd = input('Do you [a]ttack, [r]unaway or [l]ook around?')
         cmd = cmd.lower()
@@ -41,10 +44,10 @@ def game_loop():
             if hero.attack(active_creature):
                 creature.remove(active_creature)
             else:
-                # TODO: randomize the amount of time that the hero needs to rest based on the level of the opponent
                 # he has lost to
-                print('The wizard hero runs and hides taking time to recover ...')
-                time.sleep(5)
+                wait_time = 15 if active_creature.level >= 15 else active_creature.level
+                print('The wizard hero runs and hides taking {} seconds to recover ...'.format(wait_time))
+                time.sleep(wait_time)
                 print('The wizard hero has returned refreshed and invigorated!')
         elif cmd == 'r':
             print('The wizard has become unsure of his power and flees!')
