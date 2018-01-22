@@ -16,26 +16,28 @@ def print_header():
 
 
 def game_loop():
-    small_animal_count = random.randint(1, 6)
-    predator_count = random.randint(1, 4)
-    dragon_count = random.randint(1, 2)
-
-    print(small_animal_count, predator_count, dragon_count)
+    # TODO: Only fight wizard after all other creatures have been defeated or you get to a certain level
+    small_animal_count = random.randint(100, 250)
+    predator_count = random.randint(10, 40)
+    dragon_count = random.randint(5, 10)
 
     creature = []
-    creature.append(Wizard('Evil Wizard', random.randint(500, 1000)))
+    creature.append(Wizard('Evil Wizard', random.randint(750, 1500)))
 
     for d in range(1, dragon_count+1):
-        creature.append(Dragon('Dragon', random.randint(35, 50), random.randint(1, 100), True if random.randint(1,100)
-                                                                                                 <= 50 else False))
+        if random.randint(1,100) <= 50:
+            creature.append(Dragon('Dragon', random.randint(50, 100), random.randint(1, 100), True))
+        else:
+            creature.append(Dragon('Dragon', random.randint(25, 75), random.randint(1, 100), False))
+
 
     for p in range(1, predator_count+1):
         creature.append(Predator('Tiger', random.randint(1, 12)))
 
     for sa in range(1, small_animal_count+1):
-        creature.append(SmallAnimal('Toad', random.randint(1, 3)))
+        creature.append(SmallAnimal('Toad' if random.randint(1,100) <= 50 else 'Bat', random.randint(1, 6)))
 
-    hero = Wizard('Ryan', 100)
+    hero = Wizard('Ryan', 2)
 
     while True:
         active_creature = random.choice(creature)
@@ -43,12 +45,15 @@ def game_loop():
             print('An {} of level {} has appeared from a dark and foggy forrest'.format(
                 active_creature.name, active_creature.level
             ))
+        elif active_creature.name == 'Dragon':
+            print(active_creature)
+            print('It is a dragon!')
         else:
             print('A {} of level {} has appeared from a dark and foggy forrest'.format(
                 active_creature.name, active_creature.level
             ))
 
-        cmd = input('Do you [a]ttack, [r]unaway or [l]ook around?')
+        cmd = input('Do you [a]ttack, [r]unaway, [l]ook around or [c]heck you current level?')
         cmd = cmd.lower()
         if cmd == 'a':
             if hero.attack(active_creature):
@@ -65,6 +70,10 @@ def game_loop():
             print('The wizard {} takes in the surroundings and sees:'.format(hero.name))
             for c in creature:
                 print('* A {} of level {}'.format(c.name, c.level))
+            print()
+            print('There are {} remaining foes.'.format(len(creature)))
+        elif cmd == 'c':
+            print('Your current level is {}'.format(hero.level))
         else:
             print('OK ... exiting game ... good bye!')
             break
