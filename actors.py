@@ -20,8 +20,8 @@ class Wizard(Creature):
         ))
 
         # TODO: make more complex algorithm
-        my_roll = self.get_defensive_roll()
-        creature_roll = other_creature.get_defensive_roll()
+        my_roll = self.get_defensive_roll() * random.randint(1,100) / 100
+        creature_roll = other_creature.get_defensive_roll() * random.randint(1,100) / 100
 
         print('You rolled {} ...'.format(my_roll))
         print('The creature {} rolled a {}'.format(other_creature.name, creature_roll))
