@@ -79,6 +79,7 @@ def game_loop():
             break
 
         if not creature:
+            print('You ended with a final level of {}'.format(hero.level))
             print('You WIN!')
             break
 
